@@ -35,8 +35,20 @@
                     <i-button type="text" @click.native="toggleClick">
                         <Icon type="navicon" size="32"></Icon>
                     </i-button>
+                       <div class="userinfo">
+                      <Dropdown placement="bottom-end">
+                        <span class="head-img">
+                          张索尼
+                            <img src="./../../assets/img/zynga.png">
+                        </span>
+                        <Dropdown-menu slot="list">
+                            <Dropdown-item @click.native="modifyPassWord()">修改密码</Dropdown-item>
+                            <Dropdown-item  @click.native="logout()" divided>退出</Dropdown-item>
+                        </Dropdown-menu>
+                    </Dropdown>
+                    </div>
                     </i-col>
-                 
+                
                 </div>
                 <div class="layout-breadcrumb">
                     <Breadcrumb>
@@ -99,6 +111,10 @@ export default {
         },
         routeTo(e) {
             this.$router.push(e);
+        },
+        logout(){
+             localStorage.setItem("USER_TOKEN","");
+             this.$router.push('/login');
         }
     }
 }
@@ -168,5 +184,33 @@ export default {
 
 .ivu-col {
     transition: width .2s ease-in-out;
+}
+.userinfo{
+    display: inline-block;
+    float: right;
+}
+.userinfo .ivu-dropdown{
+    margin-top: 50px;
+}
+ .ivu-dropdown {
+    margin-right: 25px;
+    margin-top: 22px;
+}
+.ivu-menu-submenu-title{
+    padding: 14px;
+}
+.head-img {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    float: right;
+    margin-top: -50px;
+}
+.head-img img{
+    border-radius: 20px;
+    margin: 10px 0px 10px 10px;
+    width: 40px;
+    height: 40px;
+    float: right;
 }
 </style>

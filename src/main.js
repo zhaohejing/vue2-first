@@ -12,13 +12,13 @@ Vue.use(VueMarkdown)
 Vue.use(IEcharts)
 
 Vue.config.productionTip = true
-//路由全局钩子
-router.beforeEach((to, from, next) => {
-  var token=  store.getters.userToken;
-  if(!token){ return next({ path: '/login' })  }
-    // do something 
-    next();
-});
+// //路由全局钩子
+// router.beforeEach((to, from, next) => {
+//   var token=  store.getters.userToken;
+//   if(!token){ return next({ path: '/login' })  }
+//     // do something 
+//     next();
+// });
 new Vue({
     el: '#app',
     router,
