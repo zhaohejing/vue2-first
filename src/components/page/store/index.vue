@@ -1,14 +1,22 @@
 <template>
-    <Table border :content="self" :columns="columnstitle" :data="data6">
-    
-    </Table>
+    <div>
+        <Table border :content="self" :columns="columns" :data="data"></Table>
+        <div class="page">
+            <div class="right">
+                <Page :total="page.total" :current="page.current" @on-change="changePage"></Page>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
 export default {
     data() {
         return {
             self: this,
-            columnstitle: [
+            page:{
+                current:1,total:100
+            },
+            columns: [
                 {
                     type: 'selection',
                     width: 60,
@@ -62,7 +70,7 @@ export default {
                     }
                 }
             ],
-            data6: [
+            data: [
                 {
                     name: '王小明',
                     age: 18,
@@ -114,6 +122,9 @@ export default {
             ]
         }
     },
+    created:function(){
+            
+    },
     methods: {
         show(index) {
             this.$Modal.info({
@@ -124,6 +135,9 @@ export default {
         remove(index) {
             this.data6.splice(index, 1);
         },
+        changePage(){
+
+        } 
         // setActive(){
         //   console.log('g');
         //   console.log(this.$parent.data);
@@ -137,3 +151,12 @@ export default {
     // }
 }
 </script>
+<<style  scoped>
+    .page{
+        margin: 10px;
+        overflow: hidden
+    }
+    .right{
+float: right;
+    }
+</style>

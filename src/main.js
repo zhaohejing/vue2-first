@@ -10,7 +10,6 @@ import store from './store/index.js'
 Vue.use(iView)
 Vue.use(VueMarkdown)
 Vue.use(IEcharts)
-
 Vue.config.productionTip = true
 //路由全局钩子
 router.beforeEach((to, from, next) => {
