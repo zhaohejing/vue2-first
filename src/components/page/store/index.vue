@@ -1,21 +1,21 @@
 <template>
     <div>
-        <Table border :content="self" :columns="columns" :data="data"></Table>
+        <Table border  :columns="columns" :data="data"></Table>
         <div class="page">
             <div class="right">
-                <Page :total="page.total" :current="page.current" @on-change="changePage"></Page>
+                <Page :total="total" :current="current" @on-change="changePage"></Page>
             </div>
         </div>
     </div>
 </template>
 <script>
+import api from './../../../fetch/api'
 export default {
     data() {
         return {
-            self: this,
-            page:{
-                current:1,total:100
-            },
+           // self: this,
+            current:1,
+            total:100,
             columns: [
                 {
                     type: 'selection',
@@ -124,10 +124,13 @@ export default {
     },
     created:function(){
             api.commonApi("api/shuffling/list",{
-                pageNum:page.current,pageSize:10
+                pageNum:current,pageSize:10
             }).then(function(res){
-                this.data=res.result;
-                this.page.total=res.total;
+                if(res.success){
+                // this.data=res.result;
+                // this.total=res.total;
+                }
+              
             })
     },
     methods: {
