@@ -1,12 +1,18 @@
 <template>
     <div>
         <Row>
-            <Col span="16">
+            <Col span="8">
             <Input v-model="page.name">
             <Button slot="append" icon="ios-search" @click="search"></Button>
             </Input>
             </Col>
+
+            <Col span="12">
+            <Button type="info">添加</Button>
+            <Button type="success">批量删除</Button>
+            </Col>
         </Row>
+        <br>
         <Table border :columns="title" :data="rows" stripe></Table>
         <div class="page">
             <div class="right">
@@ -83,7 +89,7 @@ export default {
                     }
                 }
             ],
-             total: 0,            
+            total: 0,
             page: {
                 index: 1,
                 size: 10,
@@ -117,7 +123,7 @@ export default {
         },
         //分页
         changePage(page) {
-            this.page.index = page||1;
+            this.page.index = page || 1;
             api.commonApi("api/shuffling/list", {
                 pageNum: this.page.index,
                 pageSize: this.page.size,
@@ -130,7 +136,7 @@ export default {
                 }
             })
         },
-        search(){
+        search() {
             this.changePage(this.page.index);
         }
     },

@@ -26,10 +26,17 @@ export default new Router({
           component: r =>
             require(["../components/common/dashboard.vue"], r)
         },
+         
+          
         {
           path: "/figure",
           component: r =>
             require(["../components/page/store/index.vue"], r)
+        },
+             {
+          path: "/integralrecord",
+          component: r =>
+            require(["../components/page/integral/record.vue"], r)
         },
         {
           path: "/integral",
