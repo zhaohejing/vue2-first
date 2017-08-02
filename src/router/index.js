@@ -18,68 +18,68 @@ export default new Router({
 
     {
       path: "/dashboard",
-      component: resolve =>
-        require(["../components/common/index.vue"], resolve),
+      component: r =>
+        require(["../components/common/index.vue"], r),
       children: [
         {
           path: "",
-          component: resolve =>
-            require(["../components/common/dashboard.vue"], resolve)
+          component: r =>
+            require(["../components/common/dashboard.vue"], r)
         },
         {
           path: "/figure",
-          component: resolve =>
-            require(["../components/page/store/index.vue"], resolve)
+          component: r =>
+            require(["../components/page/store/index.vue"], r)
         },
         {
           path: "/integral",
-          component: resolve =>
-            require(["../components/page/integral/index.vue"], resolve)
+          component: r =>
+            require(["../components/page/integral/index.vue"], r)
         },
         {
           path: "/form",
-          component: resolve =>
-            require(["../components/page/form.vue"], resolve)
+          component: r =>
+            require(["../components/page/form.vue"], r)
         },
         {
           path: "/table",
-          component: resolve =>
-            require(["../components/page/table.vue"], resolve)
+          component: r =>
+            require(["../components/page/table.vue"], r)
         },
         {
           path: "/markdown-viewer",
-          component: resolve =>
-            require(["../components/page/markdown-viewer.vue"], resolve)
+          component: r =>
+            require(["../components/page/markdown-viewer.vue"], r)
         },
         {
           path: "/markdown-editor-1",
-          component: resolve =>
-            require(["../components/page/markdown-editor-1.vue"], resolve)
+          component: r =>
+            require(["../components/page/markdown-editor-1.vue"], r)
         },
         {
           path: "/markdown-editor-2",
-          component: resolve =>
-            require(["../components/page/markdown-editor-2.vue"], resolve)
+          component: r =>
+            require(["../components/page/markdown-editor-2.vue"], r)
         },
         {
           path: "/rtf",
-          component: resolve => require(["../components/page/rtf.vue"], resolve)
+          component: r => require(["../components/page/rtf.vue"], r)
         },
         {
           path: "/upload",
-          component: resolve =>
-            require(["../components/page/upload.vue"], resolve)
+          component: r =>
+            require(["../components/page/upload.vue"], r)
         },
         {
           path: "/echarts",
-          component: resolve =>
-            require(["../components/page/echarts.vue"], resolve)
+          component: r =>
+            require(["../components/page/echarts.vue"], r)
         }
       ]
     },
     {
       path: "/login",
-      component: resolve => require(["../components/common/login.vue"], resolve)
+      component: r => require(["../components/common/login.vue"], r)
     }
   ]
 });

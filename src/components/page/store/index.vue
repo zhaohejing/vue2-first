@@ -1,9 +1,16 @@
 <template>
     <div>
-        <Table border   :columns="title" :data="rows" stripe></Table>
+        <Row>
+            <Col span="16">
+            <Input v-model="page.name">
+            <Button slot="append" icon="ios-search" @click="search"></Button>
+            </Input>
+            </Col>
+        </Row>
+        <Table border :columns="title" :data="rows" stripe></Table>
         <div class="page">
             <div class="right">
-                <Page :total="page.total" :current="page.index" @on-change="changePage"></Page>
+                <Page :total="total" :current="page.index" @on-change="changePage"></Page>
             </div>
         </div>
     </div>
@@ -13,8 +20,8 @@ import api from './../../../fetch/api'
 export default {
     data() {
         return {
-            rows:[],
-            title:[
+            rows: [],
+            title: [
                 {
                     type: 'selection',
                     width: 60,
@@ -31,12 +38,12 @@ export default {
                 {
                     title: '分类',
                     key: 'cate',
-                    render :(h,parms)=>{
-                        let row=parms.row;
-                        return row.cate==1?'轮播图':'banner图'
+                    render: (h, parms) => {
+                        let row = parms.row;
+                        return row.cate == 1 ? '轮播图' : 'banner图'
                     }
                 },
-                 {
+                {
                     title: '上线时间',
                     key: 'online_time'
                 },
@@ -57,7 +64,7 @@ export default {
                                 },
                                 on: {
                                     click: () => {
-                                        this.show(params.index)
+                                        this.show(params.row)
                                     }
                                 }
                             }, '查看'),
@@ -68,7 +75,7 @@ export default {
                                 },
                                 on: {
                                     click: () => {
-                                        this.remove(params.index)
+                                        this.remove(params.row)
                                     }
                                 }
                             }, '删除')
@@ -76,41 +83,56 @@ export default {
                     }
                 }
             ],
-            page:{
-                index:1,size:10,total:0
+             total: 0,            
+            page: {
+                index: 1,
+                size: 10,
+                name: ""
             }
         }
     },
-    created:function(){
-         this.changePage();
+    created: function () {
+        this.changePage();
     },
     methods: {
-        show(index) {
-            this.$Modal.info({
-                title: '用户信息',
-                content: `姓名：${this.rows[index].shuffling_name}<br>年龄：${this.rows[index].url}<br>地址：${this.rows[index].address}`
+        //详情
+        show(row) {
+            api.commonGet(`api/shuffling/get?id=${row.id}`).then(r => {
+                if (r.success) {
+                    this.$Modal.info({
+                        title: '用户信息',
+                        content: `姓名：${r.result.shuffling_name}<br>年龄：${r.result.url}<br>地址：${r.result.address}`
+                    });
+                }
+            });
+
+        },
+        //删除
+        remove(row) {
+            api.commonApi("api/shuffling/delete", { list: [row.id] }).then(r => {
+                if (r.success) {
+                    this.changePage();
+                }
             })
         },
-        remove(index) {
-            this.rows.splice(index, 1);
-        },
-        changePage(){
-         api.commonApi("api/shuffling/list",{
-                pageNum:this.page.index,
-                pageSize:this.page.size,
-                cate:1
-            }).then(r=>{
-                if(r.success){
-                this.rows=r.result;
-                this.page.total=r.total;
+        //分页
+        changePage(page) {
+            this.page.index = page||1;
+            api.commonApi("api/shuffling/list", {
+                pageNum: this.page.index,
+                pageSize: this.page.size,
+                name: this.page.name,
+                cate: 1
+            }).then(r => {
+                if (r.success) {
+                    this.rows = r.result;
+                    this.total = r.total;
                 }
-            } )
-        } 
-        // setActive(){
-        //   console.log('g');
-        //   console.log(this.$parent.data);
-        //   this.$emit()
-        // }
+            })
+        },
+        search(){
+            this.changePage(this.page.index);
+        }
     },
     // mounted() {
     //   this.$nextTick(function() {
