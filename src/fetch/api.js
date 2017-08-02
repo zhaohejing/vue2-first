@@ -1,6 +1,5 @@
 import axios from 'axios'
   axios.defaults.headers.post['Content-Type'] = 'application/json';
-
   axios.defaults.headers.post['Authorization'] = 'Bearer '+  localStorage.getItem("USER_TOKEN");;
   axios.defaults.baseURL = 'http://tcservice.hijigu.com:8080/';
   export function fetch(url, params) {
@@ -8,8 +7,7 @@ import axios from 'axios'
           axios.post(url, params)
              .then(response => {
                resolve(response.data);
-  })
- .catch((error) => {
+  }).catch((error) => {
         reject(error);
        })
     })

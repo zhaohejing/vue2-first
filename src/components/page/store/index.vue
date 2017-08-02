@@ -123,7 +123,12 @@ export default {
         }
     },
     created:function(){
-            
+            api.commonApi("api/shuffling/list",{
+                pageNum:page.current,pageSize:10
+            }).then(function(res){
+                this.data=res.result;
+                this.page.total=res.total;
+            })
     },
     methods: {
         show(index) {
