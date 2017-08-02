@@ -1,9 +1,9 @@
 <template>
     <div>
-        <Table border  :columns="columns" :data="data"></Table>
+        <Table border   :columns="title" :data="rows" stripe></Table>
         <div class="page">
             <div class="right">
-                <Page :total="total" :current="current" @on-change="changePage"></Page>
+                <Page :total="page.total" :current="page.index" @on-change="changePage"></Page>
             </div>
         </div>
     </div>
@@ -13,26 +13,32 @@ import api from './../../../fetch/api'
 export default {
     data() {
         return {
-           // self: this,
-            current:1,
-            total:100,
-            columns: [
+            rows:[],
+            title:[
                 {
                     type: 'selection',
                     width: 60,
                     align: 'center'
                 },
                 {
-                    title: '姓名',
-                    key: 'name',
+                    title: '轮播图名称',
+                    key: 'shuffling_name',
                 },
                 {
-                    title: '年龄',
-                    key: 'age'
+                    title: 'URL',
+                    key: 'url'
                 },
                 {
-                    title: '地址',
-                    key: 'address'
+                    title: '分类',
+                    key: 'cate',
+                    render :(h,parms)=>{
+                        let row=parms.row;
+                        return row.cate==1?'轮播图':'banner图'
+                    }
+                },
+                 {
+                    title: '上线时间',
+                    key: 'online_time'
                 },
                 {
                     title: '操作',
@@ -70,81 +76,35 @@ export default {
                     }
                 }
             ],
-            data: [
-                {
-                    name: '王小明',
-                    age: 18,
-                    address: '北京市朝阳区芍药居'
-                },
-                {
-                    name: '张小刚',
-                    age: 25,
-                    address: '北京市海淀区西二旗'
-                },
-                {
-                    name: '李小红',
-                    age: 30,
-                    address: '上海市浦东新区世纪大道'
-                },
-                {
-                    name: '周小伟',
-                    age: 26,
-                    address: '深圳市南山区深南大道'
-                }, {
-                    name: '王小明',
-                    age: 18,
-                    address: '北京市朝阳区芍药居'
-                },
-                {
-                    name: '张小刚',
-                    age: 25,
-                    address: '北京市海淀区西二旗'
-                },
-                {
-                    name: '李小红',
-                    age: 30,
-                    address: '上海市浦东新区世纪大道'
-                },
-                {
-                    name: '周小伟',
-                    age: 26,
-                    address: '深圳市南山区深南大道'
-                }, {
-                    name: '王小明',
-                    age: 18,
-                    address: '北京市朝阳区芍药居'
-                },
-                {
-                    name: '张小刚',
-                    age: 25,
-                    address: '北京市海淀区西二旗'
-                }
-            ]
+            page:{
+                index:1,size:10,total:0
+            }
         }
     },
     created:function(){
-            api.commonApi("api/shuffling/list",{
-                pageNum:current,pageSize:10
-            }).then(function(res){
-                if(res.success){
-                // this.data=res.result;
-                // this.total=res.total;
-                }
-              
-            })
+         this.changePage();
     },
     methods: {
         show(index) {
             this.$Modal.info({
                 title: '用户信息',
-                content: `姓名：${this.data6[index].name}<br>年龄：${this.data6[index].age}<br>地址：${this.data6[index].address}`
+                content: `姓名：${this.rows[index].shuffling_name}<br>年龄：${this.rows[index].url}<br>地址：${this.rows[index].address}`
             })
         },
         remove(index) {
-            this.data6.splice(index, 1);
+            this.rows.splice(index, 1);
         },
         changePage(){
-
+         api.commonApi("api/shuffling/list",{
+                pageNum:this.page.index,
+                pageSize:this.page.size,
+                cate:1
+            }).then(r=>{
+                if(r.success){
+                this.rows=r.result;
+                this.page.total=r.total;
+                }
+            } )
         } 
         // setActive(){
         //   console.log('g');
