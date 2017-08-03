@@ -38,7 +38,7 @@
                        <div class="userinfo">
                       <Dropdown placement="bottom-end">
                         <span class="head-img">
-                          张索尼
+                          {{userName}}
                             <img src="./../../assets/img/zynga.png">
                         </span>
                         <Dropdown-menu slot="list">
@@ -80,6 +80,7 @@ export default {
         return {
             spanLeft: 5,
             spanRight: 19,
+            userName:store.getters.userName,
             menus: []
         }
     },

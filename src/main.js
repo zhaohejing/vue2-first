@@ -6,18 +6,18 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import VueQuillEditor from 'vue-quill-editor'
 import IEcharts from 'vue-echarts-v3';
-import store from './store/index.js'
+import store from './store/index'
 Vue.use(iView)
 Vue.use(VueMarkdown)
 Vue.use(IEcharts)
 Vue.config.productionTip = true
 //路由全局钩子
-router.beforeEach((to, from, next) => {
-  var token=  store.getters.userToken;
-  if(!token){ return next({ path: '/login' })  }
-    // do something 
-    next();
-});
+// router.beforeEach((to, from, next) => {
+//   var token=  store.getters.userToken;
+//   if(!token){ return next({ path: '/login' })  }
+//     // do something 
+//     next();
+// });
 new Vue({
     el: '#app',
     router,

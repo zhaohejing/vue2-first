@@ -53,7 +53,10 @@ export default {
                 if (valid) {
                     api.commonPost("sys/login",this.formInline).then(res=>{
                         if(res.success){
-                       localStorage.setItem("USER_TOKEN",res.result.token);
+                            this.$store.dispatch("storeToken",res.result.token);
+                            this.$store.dispatch("storeName",res.result.nick_name);
+                        localStorage.setItem("USER_TOKEN",res.result.token);
+                        localStorage.setItem("USER_NAME",res.result.nick_name);
                          this.$router.push('/dashboard');
                         }else{
                     this.$Message.error(res.error);
