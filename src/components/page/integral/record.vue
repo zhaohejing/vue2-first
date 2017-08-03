@@ -18,6 +18,7 @@
     </div>
 </template>
 <script>
+import api from '@/fetch/api';
     export default {
 
     }

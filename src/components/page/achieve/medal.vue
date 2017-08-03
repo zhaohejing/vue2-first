@@ -22,7 +22,7 @@
     </div>
 </template>
 <script>
-import api from './../../../fetch/api'
+import api from '@/fetch/api';
 export default {
     data() {
         return {

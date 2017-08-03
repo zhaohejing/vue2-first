@@ -73,8 +73,8 @@
 </template>
 
 <script>
-import api from './../../fetch/api'
-import store from './../../store/index'
+import api from '@/fetch/api'
+import store from '@/store/index'
 export default {
     data() {
         return {
