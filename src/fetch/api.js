@@ -30,7 +30,7 @@ import axios from 'axios'
         // alert('进入api.js')
           return fetch('api/sysmenu/getMenuPerson');
       },
-      commonApi(url, params) {
+      commonPost(url, params) {
         return fetch(url, params)
       }
       ,commonGet(url,params){

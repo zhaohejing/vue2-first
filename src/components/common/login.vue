@@ -51,7 +51,7 @@ export default {
         handleSubmit(name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    api.commonApi("sys/login",this.formInline).then(res=>{
+                    api.commonPost("sys/login",this.formInline).then(res=>{
                         if(res.success){
                        localStorage.setItem("USER_TOKEN",res.result.token);
                          this.$router.push('/dashboard');

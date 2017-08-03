@@ -115,7 +115,7 @@ export default {
         },
         //删除
         remove(row) {
-            api.commonApi("api/shuffling/delete", { list: [row.id] }).then(r => {
+            api.commonPost("api/shuffling/delete", { list: [row.id] }).then(r => {
                 if (r.success) {
                     this.changePage();
                 }
@@ -124,7 +124,7 @@ export default {
         //分页
         changePage(page) {
             this.page.index = page || 1;
-            api.commonApi("api/shuffling/list", {
+            api.commonPost("api/shuffling/list", {
                 pageNum: this.page.index,
                 pageSize: this.page.size,
                 name: this.page.name,
