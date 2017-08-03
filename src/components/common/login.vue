@@ -51,25 +51,25 @@ export default {
         handleSubmit(name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    api.commonPost("sys/login",this.formInline).then(res=>{
-                        if(res.success){
-                            this.$store.dispatch("storeToken",res.result.token);
-                            this.$store.dispatch("storeName",res.result.nick_name);
-                        localStorage.setItem("USER_TOKEN",res.result.token);
-                        localStorage.setItem("USER_NAME",res.result.nick_name);
-                         this.$router.push('/dashboard');
-                        }else{
-                    this.$Message.error(res.error);
+                    api.commonPost("sys/login", this.formInline).then(res => {
+                        if (res.success) {
+                            this.$store.dispatch("storeToken", res.result.token);
+                            this.$store.dispatch("storeName", res.result.nick_name);
+                            localStorage.setItem("USER_TOKEN", res.result.token);
+                            localStorage.setItem("USER_NAME", res.result.nick_name);
+                            this.$router.push('/dashboard');
+                        } else {
+                            this.$Message.error(res.error);
                         }
                     })
-                   
+
                 } else {
                     this.$Message.error('表单验证失败!');
                 }
             })
         },
         handleReset(val) {
-         //   console.log(val)
+            //   console.log(val)
         }
     }
 }

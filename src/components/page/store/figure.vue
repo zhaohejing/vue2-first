@@ -8,17 +8,29 @@
             </Col>
 
             <Col span="12">
-            <Button type="info">添加</Button>
-            <Button type="success">批量删除</Button>
+            <Button type="info" @click="add">添加</Button>
+            <Button type="success" @click="mutileDelete">批量删除</Button>
             </Col>
         </Row>
         <br>
         <Table border :columns="title" :data="rows" stripe></Table>
         <div class="page">
             <div class="right">
-                <Page :total="total" :current="page.index" show-total  show-sizer @on-change="changePage"></Page>
+                <Page :total="total" :current="page.index" show-total  show-sizer @on-page-size-change="ChangeSize"
+                 @on-change="Init"></Page>
             </div>
         </div>
+
+ <Modal
+        v-model="model"
+        title="添加banner"
+        @on-ok="ok"
+        @on-cancel="cancel">
+        <p>a</p>
+        <p>a</p>
+        <p>a</p>
+    </Modal>
+
     </div>
 </template>
 <script>
@@ -26,6 +38,7 @@ import api from '@/fetch/api';
 export default {
     data() {
         return {
+            model:false,
             rows: [],
             title: [
                 {
@@ -98,9 +111,17 @@ export default {
         }
     },
     created: function () {
-        this.changePage();
+        this.Init();
     },
     methods: {
+        ok(){},
+        cancel(){},
+        mutileDelete(){},
+
+        add(){
+        this.model=!this.model;
+        },
+        
         //详情
         show(row) {
             api.commonGet(`api/shuffling/get?id=${row.id}`).then(r => {
@@ -117,12 +138,12 @@ export default {
         remove(row) {
             api.commonPost("api/shuffling/delete", { list: [row.id] }).then(r => {
                 if (r.success) {
-                    this.changePage();
+                    this.Init();
                 }
             })
         },
         //分页
-        changePage(page) {
+        Init(page) {
             this.page.index = page || 1;
             api.commonPost("api/shuffling/list", {
                 pageNum: this.page.index,
@@ -136,8 +157,12 @@ export default {
                 }
             })
         },
+        ChangeSize(size){
+        this.page.size=size;
+        this.Init(this.page.index);
+        },
         search() {
-            this.changePage(this.page.index);
+            this.Init(this.page.index);
         }
     },
     // mounted() {

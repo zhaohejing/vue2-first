@@ -7,48 +7,50 @@
                     <div class="layout-logo-left">
                         <h3>后台管理</h3>
                     </div>
-                     <Menu-item name="dashboard">
-                         <Icon type="ios-navigate" :size="iconSize"></Icon>
-                         <span class="layout-text">控制台</span>
-                      </Menu-item>
-                    <Submenu v-for="menu in menus" v-bind:key="menu.id"  v-bind:name="menu.path">
+                    <Menu-item name="dashboard">
+                        <Icon type="ios-navigate" :size="iconSize"></Icon>
+                        <span class="layout-text">控制台</span>
+                    </Menu-item>
+                  
+                    <Submenu v-for="menu in menus" v-bind:key="menu.id" v-bind:name="menu.path">
                         <template slot="title">
-                            <Icon type=menu.icon></Icon>
+                            <Icon type="ios-analytics"></Icon>
                             {{menu.title}}
                         </template>
-                        <Menu-item  v-if="menu.path" :name="menu.path" >
-                            <Icon :type="menu.icon"  :size="iconSize"></Icon>
+                        <Menu-item v-if="menu.path" :name="menu.path">
+                            <Icon type="ios-analytics" :size="iconSize"></Icon>
                             <span class="layout-text">{{menu.title}}</span>
                         </Menu-item>
                         <Row v-if="menu.child">
-                        <Menu-item  v-for="child in menu.child"  v-bind:key="child.id" :name="child.path" >
-                            <Icon :type="child.icon" :size="iconSize"></Icon>
-                            <span class="layout-text">{{child.title}}</span>
-                        </Menu-item>
+                            <Menu-item v-for="child in menu.child" v-bind:key="child.id" :name="child.path">
+                                <Icon type="ios-analytics" :size="iconSize"></Icon>
+                                <span class="layout-text">{{child.title}}</span>
+                            </Menu-item>
                         </Row>
                     </Submenu>
                 </Menu>
             </i-col>
+    
             <i-col :span="spanRight">
                 <div class="layout-header">
                     <i-col>
-                    <i-button type="text" @click.native="toggleClick">
-                        <Icon type="navicon" size="32"></Icon>
-                    </i-button>
-                       <div class="userinfo">
-                      <Dropdown placement="bottom-end">
-                        <span class="head-img">
-                          {{userName}}
-                            <img src="./../../assets/img/zynga.png">
-                        </span>
-                        <Dropdown-menu slot="list">
-                            <Dropdown-item @click.native="modifyPassWord()">修改密码</Dropdown-item>
-                            <Dropdown-item  @click.native="logout()" divided>退出</Dropdown-item>
-                        </Dropdown-menu>
-                    </Dropdown>
-                    </div>
+                        <i-button type="text" @click.native="toggleClick">
+                            <Icon type="navicon" size="32"></Icon>
+                        </i-button>
+                        <div class="userinfo">
+                            <Dropdown placement="bottom-end">
+                                <span class="head-img">
+                                    {{userName}}
+                                    <img src="./../../assets/img/zynga.png">
+                                </span>
+                                <Dropdown-menu slot="list">
+                                    <Dropdown-item @click.native="modifyPassWord()">修改密码</Dropdown-item>
+                                    <Dropdown-item @click.native="logout()" divided>退出</Dropdown-item>
+                                </Dropdown-menu>
+                            </Dropdown>
+                        </div>
                     </i-col>
-                
+    
                 </div>
                 <div class="layout-breadcrumb">
                     <Breadcrumb>
@@ -80,16 +82,15 @@ export default {
         return {
             spanLeft: 5,
             spanRight: 19,
-            userName:store.getters.userName,
             menus: []
         }
     },
     //页面渲染完 初始化数据
-    created: function(){
-            api.mineDashboard().then((response)=>{
-                if(response.success)
-                    this.menus=response.result;
-            });
+    created: function () {
+        api.mineDashboard().then((response) => {
+            if (response.success)
+                this.menus = response.result;
+        });
     },
     //计算属性 为了展示
     computed: {
@@ -98,6 +99,8 @@ export default {
         },
         setActive() {
             return this.$route.path.replace('/', '');
+        }, userName() {
+            return store.getters.userName;
         }
     },
     methods: {
@@ -113,9 +116,9 @@ export default {
         routeTo(e) {
             this.$router.push(e);
         },
-        logout(){
-             localStorage.setItem("USER_TOKEN","");
-             this.$router.push('/login');
+        logout() {
+            localStorage.setItem("USER_TOKEN", "");
+            this.$router.push('/login');
         }
     }
 }
@@ -186,20 +189,25 @@ export default {
 .ivu-col {
     transition: width .2s ease-in-out;
 }
-.userinfo{
+
+.userinfo {
     display: inline-block;
     float: right;
 }
-.userinfo .ivu-dropdown{
+
+.userinfo .ivu-dropdown {
     margin-top: 50px;
 }
- .ivu-dropdown {
+
+.ivu-dropdown {
     margin-right: 25px;
     margin-top: 22px;
 }
-.ivu-menu-submenu-title{
+
+.ivu-menu-submenu-title {
     padding: 14px;
 }
+
 .head-img {
     width: 100%;
     height: 60px;
@@ -207,7 +215,8 @@ export default {
     float: right;
     margin-top: -50px;
 }
-.head-img img{
+
+.head-img img {
     border-radius: 20px;
     margin: 10px 0px 10px 10px;
     width: 40px;
