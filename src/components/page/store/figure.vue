@@ -22,23 +22,20 @@
         </div>
 
  <Modal
-        v-model="model"
+        v-model="isEdit"
         title="添加banner"
-        @on-ok="ok"
-        @on-cancel="cancel">
-        <p>a</p>
-        <p>a</p>
-        <p>a</p>
+        @on-ok="save">
+      <modify ref="modify"></modify>
     </Modal>
-
     </div>
 </template>
 <script>
 import api from '@/fetch/api';
+import modify from './add';
 export default {
     data() {
         return {
-            model:false,
+            isEdit:false,
             rows: [],
             title: [
                 {
@@ -87,6 +84,20 @@ export default {
                                     }
                                 }
                             }, '查看'),
+                                h('Button', {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.edit(params.row)
+                                    }
+                                }
+                            }, '编辑'),
                             h('Button', {
                                 props: {
                                     type: 'error',
@@ -110,18 +121,27 @@ export default {
             }
         }
     },
+    components:{
+        modify
+    },
     created: function () {
         this.Init();
     },
     methods: {
-        ok(){},
-        cancel(){},
-        mutileDelete(){},
+        save(){
+        this.$refs.modify.handleSubmit();
+        this.isEdit=false;
+        },
+       
+        mutileDelete(){
+        },
 
         add(){
-        this.model=!this.model;
+        this.isEdit=true;
         },
-        
+        edit(row){
+        this.isEdit=true;
+        },
         //详情
         show(row) {
             api.commonGet(`api/shuffling/get?id=${row.id}`).then(r => {
