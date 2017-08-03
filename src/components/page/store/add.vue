@@ -55,10 +55,7 @@
         <Form-item label="介绍" prop="desc">
             <i-input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></i-input>
         </Form-item>
-        <Form-item>
-            <i-button type="primary" @click.native="handleSubmit('formValidate')">提交</i-button>
-            <i-button type="ghost" @click.native="handleReset('formValidate')" style="margin-left: 8px">重置</i-button>
-        </Form-item>
+      
     </i-form>
 
 </div>

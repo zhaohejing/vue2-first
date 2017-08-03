@@ -17,7 +17,7 @@
         <div class="page">
             <div class="right">
                 <Page :total="total" :current="page.index" show-total  show-sizer @on-page-size-change="ChangeSize"
-                 @on-change="Init"></Page>
+                 @on-change="ChangeIndex"></Page>
             </div>
         </div>
 
@@ -163,8 +163,7 @@ export default {
             })
         },
         //分页
-        Init(page) {
-            this.page.index = page || 1;
+        Init() {
             api.commonPost("api/shuffling/list", {
                 pageNum: this.page.index,
                 pageSize: this.page.size,
@@ -177,12 +176,16 @@ export default {
                 }
             })
         },
+        ChangeIndex(page){
+             this.page.index = page ;
+             this.Init();
+        },
         ChangeSize(size){
         this.page.size=size;
-        this.Init(this.page.index);
+        this.Init();
         },
         search() {
-            this.Init(this.page.index);
+            this.Init();
         }
     },
     // mounted() {
