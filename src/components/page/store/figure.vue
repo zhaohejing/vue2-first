@@ -16,7 +16,7 @@
         <Table border :columns="title" :data="rows" stripe></Table>
         <div class="page">
             <div class="right">
-                <Page :total="total" :current="page.index" @on-change="changePage"></Page>
+                <Page :total="total" :current="page.index" show-total  show-sizer @on-change="changePage"></Page>
             </div>
         </div>
     </div>
