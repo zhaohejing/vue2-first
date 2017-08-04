@@ -10,10 +10,11 @@
             <Col span="12">
             <Button type="info" @click="add">添加</Button>
             <Button type="success" @click="mutileDelete">批量删除</Button>
+            <Button type="info" @click="exportTable">导出</Button>
             </Col>
         </Row>
         <br>
-        <Table border :columns="title" :data="rows" stripe></Table>
+        <Table ref="table" highlight-row border :columns="title" :data="rows" stripe size="small"></Table>
         <div class="page">
             <div class="right">
                 <Page :total="total" :current="page.index" show-total  show-sizer @on-page-size-change="ChangeSize"
@@ -66,13 +67,14 @@ export default {
                 {
                     title: '操作',
                     key: 'action',
-                    width: 150,
-                    align: 'center',
+                   // width: 150,
+                    align: 'left',
+                   // fixed:'right',
                     render: (h, params) => {
                         return h('div', [
                             h('Button', {
                                 props: {
-                                    type: 'primary',
+                                    type: 'info',
                                     size: 'small'
                                 },
                                 style: {
@@ -86,7 +88,7 @@ export default {
                             }, '查看'),
                                 h('Button', {
                                 props: {
-                                    type: 'primary',
+                                    type: 'warning',
                                     size: 'small'
                                 },
                                 style: {
@@ -128,6 +130,15 @@ export default {
         this.Init();
     },
     methods: {
+        exportTable(){
+        this.$refs.table.exportCsv({
+            filename:'url',
+           // original:true,
+           // noHeader:false,
+           // columns:[],
+           // data:[]
+        });
+        },
         save(){
         this.$refs.modify.handleSubmit();
         this.isEdit=false;

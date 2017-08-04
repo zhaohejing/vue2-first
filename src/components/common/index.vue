@@ -1,9 +1,11 @@
 
 <template>
     <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
+        <!--回到顶部代码  -->
+         <Back-top></Back-top>
         <Row type="flex">
             <i-col :span="spanLeft" class="layout-menu-left">
-                <Menu :active-name="setActive" theme="dark" width="auto" @on-select="routeTo">
+                <Menu :active-name="setActive" theme="dark" width="auto" accordion @on-select="routeTo">
                     <div class="layout-logo-left">
                         <h3>后台管理</h3>
                     </div>
