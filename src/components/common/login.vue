@@ -21,6 +21,7 @@
 
 <script>
 import api from '@/fetch/api';
+import {mapActions, mapState } from 'vuex'
 export default {
     data() {
         return {
@@ -46,6 +47,14 @@ export default {
                 }]
             }
         }
+    },
+    computed:{
+        ...mapState(['userToken']),
+    },
+    created:()=>{
+            if(!this.userToken){
+                this.$router.push("/login");
+            }
     },
     methods: {
         handleSubmit(name) {

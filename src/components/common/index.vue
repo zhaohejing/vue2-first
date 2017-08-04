@@ -53,11 +53,12 @@
     
                 </div>
                 <div class="layout-breadcrumb">
-                    <Breadcrumb>
+                    <bread></bread>
+                    <!-- <Breadcrumb>
                         <Breadcrumb-item>首页</Breadcrumb-item>
                         <Breadcrumb-item>页面</Breadcrumb-item>
                         <Breadcrumb-item>{{this.$route.path.replace('/','')}}</Breadcrumb-item>
-                    </Breadcrumb>
+                    </Breadcrumb> -->
                 </div>
                 <div class="layout-content">
                     <div class="layout-content-main">
@@ -76,6 +77,7 @@
 
 <script>
 import api from '@/fetch/api'
+import bread from './bread'
 import store from '@/store/index'
 export default {
     data() {
@@ -102,6 +104,9 @@ export default {
         }, userName() {
             return store.getters.userName;
         }
+    },
+    components:{
+    bread
     },
     methods: {
         toggleClick() {
