@@ -53,6 +53,7 @@ export default {
     },
     created:()=>{
             if(this.userToken){
+                
                 this.$router.push("/dashboard");
             }
     },

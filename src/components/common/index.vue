@@ -36,9 +36,9 @@
             <i-col :span="spanRight">
                 <div class="layout-header">
                     <i-col>
-                        <i-button type="text" @click.native="toggleClick">
+                        <!-- <i-button type="text" @click.native="toggleClick">
                             <Icon type="navicon" size="32"></Icon>
-                        </i-button>
+                        </i-button> -->
                         <div class="userinfo">
                              <Badge count="1">
                                 <a href="/dashboard" class="demo-badge"></a>
