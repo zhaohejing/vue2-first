@@ -22,7 +22,7 @@
         </div>
     
         <Modal v-model="isEdit" title="添加banner" @on-ok="save">
-            <modify ref="modify"></modify>
+            <!-- <modify ref="modify"></modify> -->
         </Modal>
     </div>
 </template>

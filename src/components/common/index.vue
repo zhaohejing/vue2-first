@@ -2,7 +2,7 @@
 <template>
     <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
         <!--回到顶部代码  -->
-         <Back-top></Back-top>
+        <Back-top></Back-top>
         <Row type="flex">
             <i-col :span="spanLeft" class="layout-menu-left">
                 <Menu :active-name="setActive" theme="dark" width="auto" accordion @on-select="routeTo">
@@ -13,7 +13,7 @@
                         <Icon type="ios-navigate" :size="iconSize"></Icon>
                         <span class="layout-text">控制台</span>
                     </Menu-item>
-                  
+    
                     <Submenu v-for="menu in menus" v-bind:key="menu.id" v-bind:name="menu.path">
                         <template slot="title">
                             <Icon type="ios-analytics"></Icon>
@@ -40,6 +40,9 @@
                             <Icon type="navicon" size="32"></Icon>
                         </i-button>
                         <div class="userinfo">
+                             <Badge count="1">
+                                <a href="/dashboard" class="demo-badge"></a>
+                            </Badge>
                             <Dropdown placement="bottom-end">
                                 <span class="head-img">
                                     {{userName}}
@@ -57,10 +60,10 @@
                 <div class="layout-breadcrumb">
                     <bread></bread>
                     <!-- <Breadcrumb>
-                        <Breadcrumb-item>首页</Breadcrumb-item>
-                        <Breadcrumb-item>页面</Breadcrumb-item>
-                        <Breadcrumb-item>{{this.$route.path.replace('/','')}}</Breadcrumb-item>
-                    </Breadcrumb> -->
+                            <Breadcrumb-item>首页</Breadcrumb-item>
+                            <Breadcrumb-item>页面</Breadcrumb-item>
+                            <Breadcrumb-item>{{this.$route.path.replace('/','')}}</Breadcrumb-item>
+                        </Breadcrumb> -->
                 </div>
                 <div class="layout-content">
                     <div class="layout-content-main">
@@ -107,8 +110,8 @@ export default {
             return store.getters.userName;
         }
     },
-    components:{
-    bread
+    components: {
+        bread
     },
     methods: {
         toggleClick() {
@@ -229,5 +232,13 @@ export default {
     width: 40px;
     height: 40px;
     float: right;
+}
+
+.demo-badge {
+    width: 30px;
+    height: 30px;
+    background: #eee;
+    border-radius: 6px;
+    display: inline-block;
 }
 </style>
