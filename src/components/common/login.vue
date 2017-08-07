@@ -49,22 +49,22 @@ export default {
         }
     },
     computed:{
-        ...mapState(['userToken']),
+        ...mapState(['userinfo']),
     },
-    created:()=>{
-            if(this.userToken){
-                
+    mounted(){
+            if(this.userinfo.user_token){
                 this.$router.push("/dashboard");
             }
     },
     methods: {
+        ...mapActions(["storeUser"]),
         handleSubmit(name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
                     api.commonPost("sys/login", this.formInline).then(res => {
                         if (res.success) {
-                            this.$store.dispatch("storeToken", res.result.token);
-                            this.$store.dispatch("storeName", res.result.nick_name);
+                            this.$store.dispatch("storeUser", res.result);
+                           // this.$store.dispatch("storeName", res.result.nick_name);
                             localStorage.setItem("USER_TOKEN", res.result.token);
                             localStorage.setItem("USER_NAME", res.result.nick_name);
                             this.$router.push('/dashboard');
@@ -81,6 +81,10 @@ export default {
         handleReset(val) {
             //   console.log(val)
         }
+    },
+    //监听
+    watch:{
+
     }
 }
 

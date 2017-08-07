@@ -93,10 +93,10 @@ export default {
         }
     },
     //页面渲染完 初始化数据
-    created: function () {
-        api.mineDashboard().then((response) => {
+    mounted () {
+        api.commonPost("api/sysmenu/getMenuPerson").then((response) => {
             if (response.success)
-                this.menus = response.result;
+             this.menus = response.result;
         });
     },
     //计算属性 为了展示
