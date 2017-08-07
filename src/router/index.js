@@ -121,11 +121,12 @@ export default new Router({
   routes: [
     {
       path: "/",
-      redirect: "/login"
-    },
-    {
+     // redirect: "/login",
+     component:r =>require.ensure([],()=>r( require("../components/common/login.vue")), "login"),
+      children:[ {
       path: "/login",
       component: r =>require.ensure([],()=>r( require("../components/common/login.vue")), "login")
+    },]
     },
     {
       path: "/dashboard",
@@ -133,5 +134,6 @@ export default new Router({
       r =>require.ensure([],()=>r( require("../components/common/index.vue")), "index"),
       children: routes
     }
-  ]
+  ],
+  	strict: process.env.NODE_ENV !== 'production'
 });

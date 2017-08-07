@@ -52,7 +52,7 @@ export default {
         ...mapState(['userinfo']),
     },
     mounted(){
-            if(this.userinfo.user_token){
+            if(this.userinfo.token){
                 this.$router.push("/dashboard");
             }
     },
@@ -63,7 +63,8 @@ export default {
                 if (valid) {
                     api.commonPost("sys/login", this.formInline).then(res => {
                         if (res.success) {
-                            this.$store.dispatch("storeUser", res.result);
+                            this.storeUser(res.result);
+                           // this.$store.dispatch("storeUser", res.result);
                            // this.$store.dispatch("storeName", res.result.nick_name);
                             localStorage.setItem("USER_TOKEN", res.result.token);
                             localStorage.setItem("USER_NAME", res.result.nick_name);

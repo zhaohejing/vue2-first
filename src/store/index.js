@@ -29,7 +29,17 @@ export default new Vuex.Store({
     // 图片公共 src 的获取 getter函数：state=> state.数据名
     serverUrl: state => state.serverUrl,
     // 获取ID
-    userToken: state =>  state.userinfo.token,
-    userName: state =>  state.userinfo.nick_name
+    userToken: state =>{
+        if(!state.userinfo.token){
+            return localStorage.getItem("USER_TOKEN");
+        }
+        return state.userinfo.token;
+    }  ,
+    userName: state =>{
+          if(!state.userinfo.nick_name){
+            return localStorage.getItem("USER_NAME");
+        }
+        return state.userinfo.nick_name;
+    } 
   }
 });

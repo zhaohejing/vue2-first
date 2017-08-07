@@ -83,7 +83,6 @@
 <script>
 import api from '@/fetch/api'
 import bread from './bread'
-import store from '@/store/index'
 export default {
     data() {
         return {
@@ -94,6 +93,10 @@ export default {
     },
     //页面渲染完 初始化数据
     mounted () {
+        if(!this.$store.getters.userToken){
+            this.$router.push("/");
+            return;
+        }
         api.commonPost("api/sysmenu/getMenuPerson").then((response) => {
             if (response.success)
              this.menus = response.result;
@@ -107,7 +110,7 @@ export default {
         setActive() {
             return this.$route.path.replace('/', '');
         }, userName() {
-            return store.getters.userName;
+            return this.$store.getters.userName;
         }
     },
     components: {
@@ -128,7 +131,7 @@ export default {
         },
         logout() {
             localStorage.setItem("USER_TOKEN", "");
-            this.$router.push('/login');
+            this.$router.push('/');
         }
     }
 }
