@@ -52,8 +52,8 @@ export default {
         ...mapState(['userToken']),
     },
     created:()=>{
-            if(!this.userToken){
-                this.$router.push("/login");
+            if(this.userToken){
+                this.$router.push("/dashboard");
             }
     },
     methods: {
