@@ -1,5 +1,5 @@
 import axios from "axios";
-import store from '@/store/index';
+//import store from '@/store/index';
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["Authorization"] =
   "Bearer " +    localStorage.getItem("USER_TOKEN");
